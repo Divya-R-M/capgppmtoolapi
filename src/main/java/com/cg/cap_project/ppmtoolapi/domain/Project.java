@@ -8,6 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /*
  * Project domain is used as data traveller object.
@@ -20,13 +24,20 @@ public class Project {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotBlank(message = "ProjectName is required")
 	private String projectName;
+	@NotBlank(message = "ProjectIdentifier is required")
+	@Size(min = 4, max = 5, message = "size must be between 4 and 5 character")
 	private String projectIdentifier;
+	@NotBlank(message = "description is required")
 	private String description;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date start_date;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date end_date;
-	
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date created_At;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date updated_At;
 	public Project() {
 		super();
