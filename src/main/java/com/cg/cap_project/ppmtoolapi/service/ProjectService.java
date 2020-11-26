@@ -12,15 +12,24 @@ public class ProjectService {
 
 	@Autowired
 	private ProjectRepository projectRepository;
-	
+
 	public Project saveOrUpdate(Project project) {
-		//TODO Service logic on project
+
 		try {
 			project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
 			return projectRepository.save(project);
-		}
-		catch(Exception e) {
-			throw new ProjectIDException("ProjectIdentifier "+project.getProjectIdentifier()+" already available");
+		} catch (Exception e) {
+			throw new ProjectIDException("ProjectIdentifier " + project.getProjectIdentifier() + " already available");
 		}
 	}
+
+	public Project findProjectByProjectIdentifier(String projectIdentifier) {
+		Project project = projectRepository.findByProjectIdentifier(projectIdentifier.toUpperCase());
+		if (project == null) {
+			throw new ProjectIDException("ProjectIdentifier " + projectIdentifier + " not available");
+		}
+		return project;
+
+	}
+
 }

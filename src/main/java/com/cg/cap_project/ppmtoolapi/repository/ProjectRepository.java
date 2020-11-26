@@ -10,4 +10,7 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 
 	//TODO : no need to add CRUD methods, Methods can be customized.
 	
+	Project findByProjectIdentifier(String projectIdentifier);
+
+	
 }
